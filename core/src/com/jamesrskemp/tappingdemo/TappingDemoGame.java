@@ -47,7 +47,7 @@ public class TappingDemoGame extends ApplicationAdapter {
 
 		// Create another box to display in the right half of the screen.
 		Box box2 = new Box();
-		box2.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2 - box2.getHeight() / 2);
+		box2.setPosition(Gdx.graphics.getWidth() - box2.getWidth(), Gdx.graphics.getHeight() / 2 - box2.getHeight() / 2);
 		stage.addActor(box2);
 
 		// Create a multiplexer so we can later handle multiple processors (such as a camera or HUD).
