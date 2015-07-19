@@ -1,15 +1,16 @@
 package com.jamesrskemp.tappingdemo;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.jamesrskemp.tappingdemo.objects.Box;
 
@@ -29,6 +30,10 @@ public class TappingDemoGame extends ApplicationAdapter {
 	 */
 	Stage stage;
 
+	Label informationLabel;
+	Box box1;
+	Box box2;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -41,15 +46,23 @@ public class TappingDemoGame extends ApplicationAdapter {
 		stage = new Stage(new FitViewport(800, 480), batch);
 		stage.getViewport().setCamera(camera);
 
+		informationLabel = new Label("Tap an image to begin.", new Label.LabelStyle(new BitmapFont(), Color.CYAN));
+		informationLabel.setName("informationLabel");
+		informationLabel.setPosition(10, 5);
+
+		stage.addActor(informationLabel);
+
 		camera.update();
 
 		// Create a box to display in the left half of the screen.
-		Box box1 = new Box();
+		box1 = new Box();
+		box1.setName("box1");
 		box1.setPosition(0, Gdx.graphics.getHeight() / 2 - box1.getHeight() / 2);
 		stage.addActor(box1);
 
 		// Create another box to display in the right half of the screen.
-		Box box2 = new Box();
+		box2 = new Box();
+		box2.setName("box2");
 		box2.setPosition(Gdx.graphics.getWidth() - box2.getWidth(), Gdx.graphics.getHeight() / 2 - box2.getHeight() / 2);
 		stage.addActor(box2);
 
@@ -68,6 +81,10 @@ public class TappingDemoGame extends ApplicationAdapter {
 
 		stage.act();
 		stage.draw();
+
+		if (box1.totalTaps > 0 || box2.totalTaps > 0) {
+			informationLabel.setText(String.format("Box 1 has %s taps and box 2 has %s taps.", box1.totalTaps, box2.totalTaps));
+		}
 	}
 
 	@Override
