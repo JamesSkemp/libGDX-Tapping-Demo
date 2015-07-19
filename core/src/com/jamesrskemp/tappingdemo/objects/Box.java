@@ -14,24 +14,34 @@ import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 public class Box extends Actor {
 	private final static String TAG = Box.class.getName();
 
+	/**
+	 * Total number of times the box has been tapped.
+	 */
 	public int totalTaps;
 
+	/**
+	 * Image to be used when rendering this object.
+	 */
 	Texture img;
 
-	public Box(){
+	public Box() {
+		// Initialize the object.
 		this.totalTaps = 0;
 
+		// For now just use the sample graphic.
 		img = new Texture("badlogic.jpg");
 
 		setBounds(getX(), getY(), img.getWidth(), img.getHeight());
 		setTouchable(Touchable.enabled);
 
+		// We'll add a listener for when the actor has been tapped.
 		addListener(new ActorGestureListener() {
 			@Override
 			public void tap(InputEvent event, float x, float y, int count, int button) {
 				// Increase by one and ignore the count.
 				totalTaps++;
-				Gdx.app.log(TAG, "tap on actor " + event.getTarget() +  ": <" + x + "," + y + "> " + count + " by " + button);
+				// TODO Do something with this so the user knows it has been acted upon.
+				Gdx.app.log(TAG, "tap on actor " + event.getTarget() + ": <" + x + "," + y + "> " + count + " by " + button);
 				Gdx.app.log(TAG, "Total taps on actor: " + totalTaps);
 				super.tap(event, x, y, count, button);
 			}
