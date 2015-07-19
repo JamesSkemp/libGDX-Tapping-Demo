@@ -1,6 +1,7 @@
 package com.jamesrskemp.tappingdemo;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.jamesrskemp.tappingdemo.objects.Box;
 
 public class TappingDemoGame extends ApplicationAdapter {
@@ -36,7 +38,7 @@ public class TappingDemoGame extends ApplicationAdapter {
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		// Create a stage that fills the entire display.
-		stage = new Stage(new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()), batch);
+		stage = new Stage(new FitViewport(800, 480), batch);
 		stage.getViewport().setCamera(camera);
 
 		camera.update();
@@ -66,6 +68,12 @@ public class TappingDemoGame extends ApplicationAdapter {
 
 		stage.act();
 		stage.draw();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		super.resize(width, height);
+		stage.getViewport().update(width, height);
 	}
 
 	@Override
