@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.jamesrskemp.tappingdemo.objects.Box;
@@ -71,7 +72,17 @@ public class TappingDemoGame extends ApplicationAdapter {
 	public void dispose() {
 		super.dispose();
 
+		// This may not be necessary for what we're doing, but dispose of our two boxes.
+		for (Actor actor : stage.getActors()) {
+			if (actor.getClass() == Box.class) {
+				((Box)actor).dispose();
+			}
+		}
+
 		stage.dispose();
+
+		//stage.getActors()
+
 		batch.dispose();
 	}
 }

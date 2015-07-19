@@ -7,11 +7,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
+import com.badlogic.gdx.utils.Disposable;
 
 /**
  * Box object that can be acted upon. For our purposes it can be tapped on.
  */
-public class Box extends Actor {
+public class Box extends Actor implements Disposable {
 	private final static String TAG = Box.class.getName();
 
 	/**
@@ -54,5 +55,8 @@ public class Box extends Actor {
 		batch.draw(img, getX(), getY());
 	}
 
-
+	@Override
+	public void dispose() {
+		img.dispose();
+	}
 }
